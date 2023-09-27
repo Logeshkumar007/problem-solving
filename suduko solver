@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+int arr[9][9];
+int n=9;
+bool possible(int row,int col,int k)
+{
+    for(int i=0;i<n;i++)
+    {
+        if(arr[row][i]==k)
+        {
+            return false;
+        }
+        if(arr[i][col]==k)
+        {
+            // cout<<row<<i<<col<<k<<endl;
+            return false;
+        }
+    }
+    int x=row/3*3;
+    int y=col/3*3;
+    for(int i=x;i<x+3;i++)
+    {
+        for(int j=y;j<y+3;j++)
+        {
+            if(arr[i][j]==k)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+bool suduko()
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(arr[i][j]==0)
+            {
+                for(int k=1;k<=9;k++)
+                {
+                    if(possible(i,j,k))
+                    {
+                // cout<<i<<j<<endl;
+                        arr[i][j]=k;
+                        if(suduko())
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            arr[i][j]=0;
+                        }
+                    }
+                }
+                return false;
+                
+            }
+        }
+    }
+    return true;
+}
+int main()
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+    if(suduko())
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+            cout<<arr[i][j]<<" ";
+            }
+        cout<<endl;
+        }
+    }
+    else
+    {
+        cout<<"No solution exists";
+    }
+}
