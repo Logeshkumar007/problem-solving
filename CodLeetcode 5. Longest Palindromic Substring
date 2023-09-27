@@ -1,0 +1,58 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n=s.length(),c=0,index=0;
+        string a="#";
+        for(int i=0;i<s.length();i++)
+        {
+            a=a+s[i]+'#';
+        }
+        cout<<a<<endl;
+        int max=-100;
+        for(int i=1;i<a.length()-1;i++)
+        {
+            c=0;
+            int k=i-1;
+            int g=i+1;
+            while(k>=0&&g<a.length()&&a[k]==a[g])
+            {
+                c++;
+                k--;
+                g++;
+            }
+            // cout<<c;
+            if(c>max)
+            {
+                max=c;
+                index=i;
+            }
+
+
+        }
+        s="";
+        if(max%2==1)
+        {
+                
+            int start=index-(max/2)*2;
+            int end=index+(max/2)*2;
+            for(int i=start;i<=end;)
+            {
+                s=s+a[i];
+                // cout<<a[i];
+                i=i+2;
+            }
+        }
+        else if(max%2==0)
+        {
+            int start=index-(max/2)*2-1;
+            int end=index+(max/2)*2-1;
+            for(int i=start+2;i<=end;)
+            {
+                s=s+a[i];
+                i=i+2;
+            }
+        }
+        // cout<<endl<<max<<endl<<index;
+        return s;
+    }
+};
